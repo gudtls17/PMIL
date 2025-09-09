@@ -36,13 +36,12 @@ def reset_wandb_env():
 def model_training(cfg: DictConfig):
 
     with open_dict(cfg):
-        cfg.unique_id = datetime.now().strftime("%m-%d-%H-%M-%S") + f"_seed{cfg.repeat_time}_CovarCtrl"
+        cfg.unique_id = datetime.now().strftime("%m-%d-%H-%M-%S") + f"_seed{cfg.seed}_CovarCtrl"
 
     dataloaders = dataset_factory(cfg)
     logger = logger_factory(cfg)
     model = model_factory(cfg)
-    optimizers = optimizers_factory(
-        model=model, optimizer_configs=cfg.optimizer)
+    optimizers = optimizers_factory(model=model, optimizer_configs=cfg.optimizer)
     lr_schedulers = lr_scheduler_factory(lr_configs=cfg.optimizer,
                                          cfg=cfg)
     training = training_factory(cfg, model, optimizers,
@@ -60,8 +59,8 @@ def main(cfg: DictConfig):
     auc_list = []
     sen_list = []
     spec_list = []
-    # seeds = list(range(cfg.repeat_time))
-    seeds = list([cfg.repeat_time])
+    # seeds = list(range(cfg.seed))
+    seeds = list([cfg.seed])
     for it in range(len(seeds)):
         SEED = seeds[it]
         random.seed(
