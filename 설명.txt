@@ -1,6 +1,0 @@
-2024.11.16
-
-github 업로드시 지우고 업로드
-
-training.py의 loss lambda 표현 방법을 원본과 다르게 수정 (값은 동일)
-best model 저장 기준을 test accuracy에서 validation AUC로 변경 (report한 성능은 validation AUC가 best인 모델에서의 test 성능으로 동일)
